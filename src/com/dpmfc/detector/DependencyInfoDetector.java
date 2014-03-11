@@ -36,28 +36,6 @@ public class DependencyInfoDetector extends RelationshipDetector{
 	private String className;
 	private String typeName;
 	private HashSet<String> dependentSet;
-	
-	/**
-	 * @return the dependency information
-	 */
-//	public HashMap<String, HashSet<String>> getDependencyInfo() {
-//		allRelationMap = new HashMap<String, HashSet<E>>();
-//		allRelationMap.put(className, dependentSet);
-//		return allRelationMap;
-//	}
-	
-	@Override
-	public HashMap getAllRelationMap() {
-		//get all relationship
-		return allRelationMap;
-	}
-
-	@Override
-	public void endVisit(TypeDeclaration node) {
-		//
-		allRelationMap.put(className, dependentSet);
-		super.endVisit(node);
-	}
 
 	public DependencyInfoDetector(String projectPath) throws IOException {
 		super(projectPath);
@@ -66,6 +44,15 @@ public class DependencyInfoDetector extends RelationshipDetector{
 	@Override
 	protected void init() {
 		allRelationMap = new HashMap<String, HashSet<String>>();
+	}
+	
+	/**
+	 * @return the dependency information
+	 */
+	@Override
+	public HashMap getAllRelationMap() {
+		//get all relationship
+		return allRelationMap;
 	}
 
 	@Override
@@ -79,13 +66,14 @@ public class DependencyInfoDetector extends RelationshipDetector{
 			methodDeclaration[i].accept(new MethodFieldVisitor());
 		}
 		
-//		System.out.println(className + ":");
-//		
-//		for (Object object : dependentSet) {
-//			System.out.println(object);
-//		}
-//		System.out.println("-------------------");
 		return true;
+	}
+	
+	@Override
+	public void endVisit(TypeDeclaration node) {
+		//
+		allRelationMap.put(className, dependentSet);
+		super.endVisit(node);
 	}
 
 	
@@ -123,6 +111,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 		public boolean visit(MethodDeclaration node) {
 			//find each class of parameters of a method
 			List parametersList = node.parameters();
+			
 			for (Object object : parametersList) {
 				getTypeName(((SingleVariableDeclaration)object).getType());
 				dependentSet.add(typeName);
@@ -138,6 +127,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 				ArrayType type = (ArrayType) node;
 				getTypeName(type.getComponentType());
 			}
+			
 			//if it's parameterized, get the argument type and continue judgment
 			else if (node.isParameterizedType()) {
 				ParameterizedType type = (ParameterizedType) node;
@@ -146,6 +136,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 					getTypeName(t);
 				}
 			}
+			
 			//if it's a simple type
 			else if (node.isSimpleType()) {
 				typeName = node.toString();

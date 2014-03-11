@@ -21,14 +21,16 @@ public class TestMain {
 	 */
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-//		JavaCode2AST jc2AST = new JavaCode2AST();
+		
+		String projectPath = "D:\\Su yuyi\\百度云同步盘\\工作\\WorkSpace 2013-12\\source2XMI\\src";
 		long t = System.currentTimeMillis();
 		
-		RelationshipDetector infoDetector = 
-				new DependencyInfoDetector("D:\\Su yuyi\\百度云同步盘\\" +
-						"工作\\WorkSpace 2013-12\\source2XMI\\src");
+		RelationshipDetector dependDetector, inheriDetector, associDetector;
+		dependDetector = new DependencyInfoDetector(projectPath);
+		inheriDetector = new InheritanceInfoDetector(projectPath);
+		associDetector = new AssociationInfoDetector(projectPath);
 		
-		HashMap map = infoDetector.getAllRelationMap();
+		HashMap map = associDetector.getAllRelationMap();
 		
 		Iterator iterator = map.entrySet().iterator();
 		while (iterator.hasNext()) {

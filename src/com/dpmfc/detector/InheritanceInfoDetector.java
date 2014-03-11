@@ -7,6 +7,7 @@ package com.dpmfc.detector;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.Type;
@@ -18,13 +19,13 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 	 * key:subclass name
 	 * value:super class or interface Type name
 	 */
-	private HashMap<String, ArrayList<String>> inheritInfo;
+	private HashSet<String> inheriSet;
 	
 	/**
 	 * @return the inheritance information
 	 */
 	public HashMap<String, ArrayList<String>> getInheritInfo() {
-		return inheritInfo;
+		return allRelationMap;
 	}
 	
 	
@@ -34,34 +35,36 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 	
 	@Override
 	protected void init() {
-		inheritInfo = new HashMap<String, ArrayList<String>>();
+		allRelationMap = new HashMap<String, HashSet<String>>();
+	}
+	
+	@Override
+	public HashMap getAllRelationMap() {
+		return allRelationMap;
 	}
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		//if it has super class
-		String subClass = node.getName().toString();
-		ArrayList<String> sList = new ArrayList<String>();
 		
+		String subClass = node.getName().toString();
+		inheriSet = new HashSet<String>();
+		
+		//if it has super class
 		if (node.getSuperclassType() != null) {
-			sList.add(
+			inheriSet.add(
 					getSimpleName(
 							node.getSuperclassType()));
 		}
+		
 		//if it has interface
 		for (Object i: node.superInterfaceTypes()) {
-			sList.add(
+			inheriSet.add(
 					getSimpleName(
 							((Type)i)));
 		}
 		
-		if (sList.size() > 0) {
-			inheritInfo.put(subClass, sList);
-		}
-		
-		System.out.println(subClass);
-		for (String string : sList) {
-			System.out.println("   " + string);
+		if (inheriSet.size() > 0) {
+			allRelationMap.put(subClass, inheriSet);
 		}
 		
 		return true;
@@ -78,12 +81,4 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 		
 		return superClass;
 	}
-
-
-	@Override
-	public HashMap getAllRelationMap() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }

@@ -27,24 +27,25 @@ public class AssociationInfoDetector extends RelationshipDetector{
 	 * key:class name
 	 * value:associated class name list
 	 */
-	private HashMap<String, HashSet<String>> acsMap;
 	private String className;
 	private HashSet<String> acsSet;
 	
 	/**
 	 * @return the association information
 	 */
-	public HashMap<String, HashSet<String>> getAcsMap() {
-		return acsMap;
+	@Override
+	public HashMap getAllRelationMap() {
+		// TODO Auto-generated method stub
+		return allRelationMap;
 	}
-
+	
 	public AssociationInfoDetector(String projectPath) throws IOException{
 		super(projectPath);
 	}
 	
 	@Override
 	protected void init() {
-		acsMap = new HashMap<String, HashSet<String>>();
+		allRelationMap = new HashMap<String, HashSet<String>>();
 	}
 	
 	@Override
@@ -57,22 +58,23 @@ public class AssociationInfoDetector extends RelationshipDetector{
 		}
 		
 		//if do associate with others
-		if (acsSet.size() > 0) {
-			acsMap.put(className, acsSet);
-		}
-		
-		System.out.println(className + ":");
-		Iterator<String> iterator = acsSet.iterator();
-		while (iterator.hasNext()) {
-			System.out.println("  "+iterator.next());
-		}
+//		if (acsSet.size() > 0) {
+//			allRelationMap.put(className, acsSet);
+//		}
 		
 		return true;
 	}
 	
+	@Override
+	public void endVisit(TypeDeclaration node) {
+		//
+		allRelationMap.put(className, acsSet);
+		super.endVisit(node);
+	}
+	
 	
 	/**
-	 * TODO visit every field in the class
+	 * visit every field in the class
 	 *
 	 */
 	class FieldVisitor extends ASTVisitor {
@@ -119,5 +121,4 @@ public class AssociationInfoDetector extends RelationshipDetector{
 			}
 		}
 	}
-
 }
