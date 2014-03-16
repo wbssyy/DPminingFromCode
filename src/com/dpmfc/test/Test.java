@@ -1,6 +1,8 @@
 package com.dpmfc.test;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -8,26 +10,31 @@ import org.eclipse.jdt.core.dom.Expression;
 import org.eclipse.jdt.core.dom.MethodInvocation;
 
 
-public class Test extends ASTVisitor{
+public class Test {
 	
 	private ArrayList<String> arrayList = new ArrayList<String>();
 
-	@Override
-	public boolean visit(MethodInvocation node) {
-		// TODO Auto-generated method stub
-		Expression ex = node.getExpression();
-		System.out.println(ex.toString());
-		
-		return super.visit(node);
-	}
 
 	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		J2AST j2ast = new J2AST();
-		CompilationUnit compilationUnit = j2ast.getCompilationUnit("D:\\Su yuyi\\source2XMI\\source2XMI\\src\\util\\OutputUtil.java");
+
+		
+		HashSet<String> set = new HashSet<>();
+		set.add("123");
+		set.add("456");
+		System.out.println(set.contains("123"));
+		String tString = "123";
+		set.remove(tString);
+		
+		System.out.println(set.contains(tString));
 		
 		Test test = new Test();
-		compilationUnit.accept(test);
+		
+		File file = new File("D:\\JOSS-1\\JOSS-1");
+		File[] filelist = file.listFiles(); 
+		for (File tempFile : filelist) {
+			System.out.println(tempFile.getName());
+		}
+		
 		
 	}
 }

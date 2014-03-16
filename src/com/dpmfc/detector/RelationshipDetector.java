@@ -16,8 +16,8 @@ import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.Type;
 
-import com.pdmfc.util.FileUtil;
 import com.dpmfc.test.JavaCode2AST;
+import com.dpmfc.util.FileUtil;
 
 public abstract class RelationshipDetector extends ASTVisitor {
 	
