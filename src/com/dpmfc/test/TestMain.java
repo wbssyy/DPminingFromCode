@@ -1,21 +1,11 @@
 package com.dpmfc.test;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 
-import org.eclipse.jdt.core.dom.CompilationUnit;
-
+import com.dpmfc.bean.ProjectInfo;
+import com.dpmfc.core.*;
 import com.dpmfc.detector.AllRelationshipBuilder;
-import com.dpmfc.detector.AssociationInfoDetector;
-import com.dpmfc.detector.ClassDetector;
-import com.dpmfc.detector.DependencyInfoDetector;
-import com.dpmfc.detector.RelationshipDetector;
-import com.dpmfc.detector.InheritanceInfoDetector;
 import com.dpmfc.util.FileUtil;
 
 public class TestMain {
@@ -32,12 +22,27 @@ public class TestMain {
 		long t = System.currentTimeMillis();
 		
 		FileUtil fileUtil = new FileUtil();
-		File[] fileList = fileUtil.getMutiPath("D:\\JOSS-1\\JOSS-1");
+		File[] fileList = fileUtil.getMutiPath("D:\\test");
 		
 		
 		for (File filePath : fileList) {
 			AllRelationshipBuilder relationshipBuilder = new AllRelationshipBuilder();
 			relationshipBuilder.buildAllRelationship(filePath.toString());
+			
+			ProjectInfo projectInfo = relationshipBuilder.getAllRelationInfo();
+			
+			WeightCalculator calculator = new WeightCalculator();
+			calculator.calculateWeight(projectInfo);
+			calculator.printWeightMap();
+			
+			projectInfo.setWeightMap(calculator.getWeightMap());
+			
+			StructureAnalysis structureAnalysis = new BridgeAnalysis();
+			structureAnalysis.doStructureAnalyze(projectInfo);
+			
+//			StructureAnalysis structureAnalysis1 = new ProxyAnalysis2();
+//			structureAnalysis1.doStructureAnalyze(projectInfo);
+			
 		}
 		
 		t = System.currentTimeMillis()-t;

@@ -29,12 +29,12 @@ public class Test {
 		
 		Test test = new Test();
 		
-		File file = new File("D:\\JOSS-1\\JOSS-1");
-		File[] filelist = file.listFiles(); 
-		for (File tempFile : filelist) {
-			System.out.println(tempFile.getName());
-		}
+//		File file = new File("D:\\JOSS-1\\JOSS-1");
+//		File[] filelist = file.listFiles(); 
+//		for (File tempFile : filelist) {
+//			System.out.println(tempFile.getName());
+//		}
 		
-		
+		System.out.println(100%80);
 	}
 }

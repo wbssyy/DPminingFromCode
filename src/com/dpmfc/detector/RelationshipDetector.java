@@ -21,7 +21,7 @@ import com.dpmfc.util.FileUtil;
 
 public abstract class RelationshipDetector extends ASTVisitor {
 	
-	protected HashMap allRelationMap;
+	protected HashMap relationshipMap;
 	
 	public RelationshipDetector(String projectPath) throws IOException{
 		super();
@@ -37,7 +37,13 @@ public abstract class RelationshipDetector extends ASTVisitor {
 		
 	}
 	
-	public abstract HashMap getAllRelationMap();
+	public HashMap getAllRelationMap() {
+		return relationshipMap;
+	}
+	
+	public void setAllRelationMap(HashMap map) {
+		relationshipMap = map;
+	}
 	
 	protected abstract void init();
 }

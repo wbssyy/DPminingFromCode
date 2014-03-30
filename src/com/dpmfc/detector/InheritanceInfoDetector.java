@@ -25,7 +25,7 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 	 * @return the inheritance information
 	 */
 	public HashMap<String, ArrayList<String>> getInheritInfo() {
-		return allRelationMap;
+		return relationshipMap;
 	}
 	
 	
@@ -35,12 +35,7 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 	
 	@Override
 	protected void init() {
-		allRelationMap = new HashMap<String, HashSet<String>>();
-	}
-	
-	@Override
-	public HashMap getAllRelationMap() {
-		return allRelationMap;
+		relationshipMap = new HashMap<String, HashSet<String>>();
 	}
 
 	@Override
@@ -64,7 +59,7 @@ public class InheritanceInfoDetector extends RelationshipDetector{
 		}
 		
 		if (inheriSet.size() > 0) {
-			allRelationMap.put(subClass, inheriSet);
+			relationshipMap.put(subClass, inheriSet);
 		}
 		
 		return true;

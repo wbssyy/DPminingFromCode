@@ -8,12 +8,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.dpmfc.bean.ProjectInfo;
 import com.dpmfc.util.*;
 
 public class AllRelationshipBuilder {
 	
 	private RelationshipDetector dependDetector, inheriDetector, associDetector;
 	private ClassDetector classDetector;
+//	private HashMap<String, RelationshipDetector> allRelationMap = new HashMap<>();
+	private ProjectInfo projectInfo;
 	private StringBuilder stringBuilder = new StringBuilder();
 	
 	public void buildAllRelationship(String projectPath) throws Exception{
@@ -24,22 +27,42 @@ public class AllRelationshipBuilder {
 		inheriDetector = new InheritanceInfoDetector(projectPath);
 		associDetector = new AssociationInfoDetector(projectPath);
 		classDetector = new ClassDetector(projectPath);
+		projectInfo = new ProjectInfo();
 		
-		System.out.println("==========assciation");
-		stringBuilder.append("==========assciation: ");
-		printInfo(associDetector);
+		//remove the classes of JDK
+		HashMap depenMap = classDetector.removeJDKClass(dependDetector.getAllRelationMap());
+		projectInfo.setDependencyMap(depenMap);
 		
-		System.out.println("==========dependency");
-		stringBuilder.append("==========dependency: ");
-		printInfo(dependDetector);
+		HashMap inherMap = classDetector.removeJDKClass(inheriDetector.getAllRelationMap());
+		projectInfo.setInheritanceMap(inherMap);
 		
-		System.out.println("==========inheritance");
-		stringBuilder.append("==========inheritance: ");
-		printInfo(inheriDetector);
+		HashMap assoMap = classDetector.removeJDKClass(associDetector.getAllRelationMap());
+		projectInfo.setAssciationMap(assoMap);
 		
-		stringBuilder.append("\n");
+//		allRelationMap.put("dependency", dependDetector);
+//		allRelationMap.put("inheritance", inheriDetector);
+//		allRelationMap.put("association", associDetector);
 		
-		OutputUtil.outputToTXT(stringBuilder.toString());
+		
+//		System.out.println("==========assciation");
+//		stringBuilder.append("==========assciation: ");
+//		printInfo(associDetector);
+//		
+//		System.out.println("==========dependency");
+//		stringBuilder.append("==========dependency: ");
+//		printInfo(dependDetector);
+//		
+//		System.out.println("==========inheritance");
+//		stringBuilder.append("==========inheritance: ");
+//		printInfo(inheriDetector);
+//		
+//		stringBuilder.append("\n");
+//		
+//		OutputUtil.outputToTXT(stringBuilder.toString());
+	}
+	
+	public ProjectInfo getAllRelationInfo() {
+		return projectInfo;
 	}
 	
 	private void printInfo(RelationshipDetector relationship) {
@@ -55,12 +78,7 @@ public class AllRelationshipBuilder {
 			HashSet<String> hashSet = (HashSet<String>)entry.getValue();
 			Iterator<String> hashsetIterator = hashSet.iterator();
 			
-//			System.out.println("-------------------------"+entry.getKey());
-//			stringBuilder.append("-------------------------"+entry.getKey()+"\n");
-			
 			while (hashsetIterator.hasNext()) {
-//				System.out.println(relationNum + ". " + hashsetIterator.next());
-//				stringBuilder.append(relationNum + ". " + hashsetIterator.next()+"\n");
 				hashsetIterator.next();
 				relationNum++;
 			}

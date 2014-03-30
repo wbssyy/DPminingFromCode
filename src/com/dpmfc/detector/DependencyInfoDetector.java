@@ -43,16 +43,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 
 	@Override
 	protected void init() {
-		allRelationMap = new HashMap<String, HashSet<String>>();
-	}
-	
-	/**
-	 * @return the dependency information
-	 */
-	@Override
-	public HashMap getAllRelationMap() {
-		//get all relationship
-		return allRelationMap;
+		relationshipMap = new HashMap<String, HashSet<String>>();
 	}
 
 	@Override
@@ -72,7 +63,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 	@Override
 	public void endVisit(TypeDeclaration node) {
 		//
-		allRelationMap.put(className, dependentSet);
+		relationshipMap.put(className, dependentSet);
 		super.endVisit(node);
 	}
 

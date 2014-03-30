@@ -30,22 +30,13 @@ public class AssociationInfoDetector extends RelationshipDetector{
 	private String className;
 	private HashSet<String> acsSet;
 	
-	/**
-	 * @return the association information
-	 */
-	@Override
-	public HashMap getAllRelationMap() {
-		// TODO Auto-generated method stub
-		return allRelationMap;
-	}
-	
 	public AssociationInfoDetector(String projectPath) throws IOException{
 		super(projectPath);
 	}
 	
 	@Override
 	protected void init() {
-		allRelationMap = new HashMap<String, HashSet<String>>();
+		relationshipMap = new HashMap<String, HashSet<String>>();
 	}
 	
 	@Override
@@ -68,7 +59,7 @@ public class AssociationInfoDetector extends RelationshipDetector{
 	@Override
 	public void endVisit(TypeDeclaration node) {
 		//
-		allRelationMap.put(className, acsSet);
+		relationshipMap.put(className, acsSet);
 		super.endVisit(node);
 	}
 	
