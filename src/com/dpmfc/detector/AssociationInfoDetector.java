@@ -21,7 +21,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import com.dpmfc.test.JavaCode2AST;
 
-public class AssociationInfoDetector extends RelationshipDetector{
+public class AssociationInfoDetector extends RelationDetector{
 	
 	/**
 	 * key:class name

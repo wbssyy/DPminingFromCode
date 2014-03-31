@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.dpmfc.bean.ProjectInfo;
+import com.dpmfc.bean.Weight;
 
 public class ProxyAnalysis2 extends StructureAnalysis{
 	
 	//weight of each role of the pattern
-	private int realSubjectW = 65;
-	private int subjectW     = 49;
-	private int proxyW       = 55;
+	private int realSubjectW = Weight.INHERITANCE_A * Weight.ASSOCIATION_B;	//65;
+	private int subjectW     = Weight.INHERITANCE_B * Weight.INHERITANCE_B;	//49;
+	private int proxyW       = Weight.INHERITANCE_A * Weight.ASSOCIATION_A;	//55;
 	private static int number = 0;
 	@Override
 	public void doStructureAnalyze(ProjectInfo projectInfo) {

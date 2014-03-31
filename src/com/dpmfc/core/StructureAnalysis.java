@@ -3,11 +3,11 @@ package com.dpmfc.core;
 import java.util.HashMap;
 
 import com.dpmfc.bean.ProjectInfo;
-import com.dpmfc.detector.RelationshipDetector;
+import com.dpmfc.detector.RelationDetector;
 
 public abstract class StructureAnalysis {
 	
-	protected HashMap<String, RelationshipDetector> allRelationMap;
+	protected HashMap<String, RelationDetector> allRelationMap;
 	
 	protected StructureAnalysis structureAnalysis;
 	

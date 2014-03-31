@@ -37,7 +37,7 @@ public class TestMain {
 			
 			projectInfo.setWeightMap(calculator.getWeightMap());
 			
-			StructureAnalysis structureAnalysis = new BridgeAnalysis();
+			StructureAnalysis structureAnalysis = new StrategyAnalysis();
 			structureAnalysis.doStructureAnalyze(projectInfo);
 			
 //			StructureAnalysis structureAnalysis1 = new ProxyAnalysis2();

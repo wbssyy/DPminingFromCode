@@ -13,7 +13,7 @@ import com.dpmfc.util.*;
 
 public class AllRelationshipBuilder {
 	
-	private RelationshipDetector dependDetector, inheriDetector, associDetector;
+	private RelationDetector dependDetector, inheriDetector, associDetector;
 	private ClassDetector classDetector;
 //	private HashMap<String, RelationshipDetector> allRelationMap = new HashMap<>();
 	private ProjectInfo projectInfo;
@@ -65,7 +65,7 @@ public class AllRelationshipBuilder {
 		return projectInfo;
 	}
 	
-	private void printInfo(RelationshipDetector relationship) {
+	private void printInfo(RelationDetector relationship) {
 		//count the relationships number
 		int relationNum = 0;
 		HashMap map = relationship.getAllRelationMap();

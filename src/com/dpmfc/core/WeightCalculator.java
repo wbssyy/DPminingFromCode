@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.dpmfc.bean.ProjectInfo;
 import com.dpmfc.bean.Weight;
-import com.dpmfc.detector.RelationshipDetector;
+import com.dpmfc.detector.RelationDetector;
 import com.dpmfc.util.OutputUtil;
 
 public class WeightCalculator {

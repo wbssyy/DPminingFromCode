@@ -19,11 +19,21 @@ import org.eclipse.jdt.core.dom.Type;
 import com.dpmfc.test.JavaCode2AST;
 import com.dpmfc.util.FileUtil;
 
-public abstract class RelationshipDetector extends ASTVisitor {
+public abstract class RelationDetector extends ASTVisitor {
 	
+	/*
+	 * key: classA's name
+	 * value: all the classes that it points to
+	 */
 	protected HashMap relationshipMap;
 	
-	public RelationshipDetector(String projectPath) throws IOException{
+	/*
+	 * key: a destination of a relation 
+	 * value: all the source class which point to the key
+	 */
+	protected HashMap destinationMap;
+	
+	public RelationDetector(String projectPath) throws IOException{
 		super();
 		init();
 		
@@ -45,5 +55,13 @@ public abstract class RelationshipDetector extends ASTVisitor {
 		relationshipMap = map;
 	}
 	
+	public HashMap getDestinationMap() {
+		return destinationMap;
+	}
+
+	public void setDestinationMap(HashMap destinationMap) {
+		this.destinationMap = destinationMap;
+	}
+
 	protected abstract void init();
 }

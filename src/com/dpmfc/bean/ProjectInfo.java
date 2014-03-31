@@ -89,7 +89,7 @@ public class ProjectInfo {
 		return classList;
 	}
 	
-	private List<String> containWeight(int tempWeight) {
+	public List<String> containWeight(int tempWeight) {
 		List<String> classList = new ArrayList<String>();
 		Iterator iterator = weightMap.entrySet().iterator();
 		while (iterator.hasNext()){
@@ -109,8 +109,9 @@ public class ProjectInfo {
 		final int inherAassocB = Weight.INHERITANCE_A * Weight.ASSOCIATION_B; // 65
 		final int inherBassocA = Weight.INHERITANCE_B * Weight.ASSOCIATION_A; // 77
 		final int inherBassocB = Weight.INHERITANCE_B * Weight.ASSOCIATION_B; // 91
+		final int inherB2assocB = Weight.INHERITANCE_B * Weight.INHERITANCE_B * Weight.ASSOCIATION_B; // 637
 		
-		int[] array = {inherAassocA, inherAassocB, inherBassocA, inherBassocB};
+		int[] array = {inherAassocA, inherAassocB, inherBassocA, inherBassocB, inherB2assocB};
 		
 		for (int weight : array) {
 			List list = containWeight(weight);

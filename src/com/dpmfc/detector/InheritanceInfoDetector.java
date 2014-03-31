@@ -13,7 +13,7 @@ import org.eclipse.jdt.core.dom.ParameterizedType;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-public class InheritanceInfoDetector extends RelationshipDetector{
+public class InheritanceInfoDetector extends RelationDetector{
 	
 	/**
 	 * key:subclass name

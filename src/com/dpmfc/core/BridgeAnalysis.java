@@ -2,19 +2,17 @@ package com.dpmfc.core;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.dpmfc.bean.ProjectInfo;
 import com.dpmfc.bean.Weight;
 
 public class BridgeAnalysis extends StructureAnalysis {
 	//weight of each role of the pattern
-	private int abstractionW         = 77;
-	private int refinedAbstractionW  = 5;
-	private int implememtorW         = 91;
-	private int concreteImplementorW = 5;
+	private int abstractionW         = Weight.INHERITANCE_B * Weight.ASSOCIATION_A;	//77;
+	private int refinedAbstractionW  = Weight.INHERITANCE_A;
+	private int implememtorW         = Weight.INHERITANCE_B * Weight.ASSOCIATION_B;	//91;
+	private int concreteImplementorW = Weight.INHERITANCE_A;	//5;
 	private static int number = 0;
 	@Override
 	public void doStructureAnalyze(ProjectInfo projectInfo) {

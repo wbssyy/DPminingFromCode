@@ -25,17 +25,11 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import com.dpmfc.detector.AssociationInfoDetector.FieldVisitor;
 
-public class DependencyInfoDetector extends RelationshipDetector{
+public class DependencyInfoDetector extends RelationDetector{
 
-	/**
-	 * if A------>B
-	 * key: A's class name
-	 * value: a list of B's class name
-	 */
-//	private HashMap<String, HashSet<String>>dependencyInfo;
 	private String className;
 	private String typeName;
-	private HashSet<String> dependentSet;
+	private HashSet<String> dependentSet, sourceSet;
 
 	public DependencyInfoDetector(String projectPath) throws IOException {
 		super(projectPath);
@@ -44,6 +38,7 @@ public class DependencyInfoDetector extends RelationshipDetector{
 	@Override
 	protected void init() {
 		relationshipMap = new HashMap<String, HashSet<String>>();
+		destinationMap  = new HashMap<String, HashSet<String>>();
 	}
 
 	@Override
@@ -76,7 +71,9 @@ public class DependencyInfoDetector extends RelationshipDetector{
 			//find otherclass's object which is created as local variables in method
 			if (node.getType() != null) {
 				getTypeName(node.getType());
-				dependentSet.add(typeName);	
+				dependentSet.add(typeName);
+				
+				fillDestinationMap(typeName);
 			}
 
 			return super.visit(node);
@@ -109,6 +106,10 @@ public class DependencyInfoDetector extends RelationshipDetector{
 			}
 			
 			return super.visit(node);
+		}
+		
+		private void fillDestinationMap(String source) {
+			
 		}
 		
 		private void getTypeName(Type node) {

@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.dpmfc.bean.ProjectInfo;
+import com.dpmfc.bean.Weight;
 
-public class AdapterAnalysis extends StructureAnalysis{
+public class AdapterObjectAnalysis extends StructureAnalysis{
 	
 	//weight of each role of the pattern
-	private int adapterW = 55;
-	private int targetW  = 7;
-	private int adapteeW = 13;
+	private int adapterW = Weight.INHERITANCE_A * Weight.ASSOCIATION_A;	//55;
+	private int targetW  = Weight.INHERITANCE_B;	//7;
+	private int adapteeW = Weight.ASSOCIATION_B;	//13;
 	private static int number = 0;
 
 	@Override
